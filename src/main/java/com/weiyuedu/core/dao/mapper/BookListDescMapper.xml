@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weiyuedu.core.dao.mapper.BookListDescMapper" >
+  <resultMap id="BaseResultMap" type="com.weiyuedu.core.module.portal.pojo.BookListDesc" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="book_list_id" property="bookListId" jdbcType="INTEGER" />
+    <result column="book_id" property="bookId" jdbcType="INTEGER" />
+    <result column="category_id" property="categoryId" jdbcType="INTEGER" />
+    <result column="book_name" property="bookName" jdbcType="VARCHAR" />
+    <result column="book_desc" property="bookDesc" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="bg_picture" property="bgPicture" jdbcType="VARCHAR" />
+    <result column="download_num" property="downloadNum" jdbcType="INTEGER" />
+    <result column="star_level" property="starLevel" jdbcType="INTEGER" />
+    <result column="download_url" property="downloadUrl" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, book_list_id, book_id, category_id, book_name, book_desc, price, bg_picture, 
+    download_num, star_level, download_url, level, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from wyd_book_list_desc
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from wyd_book_list_desc
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.weiyuedu.core.module.portal.pojo.BookListDesc" >
+    insert into wyd_book_list_desc (id, book_list_id, book_id, 
+      category_id, book_name, book_desc, 
+      price, bg_picture, download_num, 
+      star_level, download_url, level, 
+      create_time, update_time)
+    values (#{id,jdbcType=INTEGER}, #{bookListId,jdbcType=INTEGER}, #{bookId,jdbcType=INTEGER}, 
+      #{categoryId,jdbcType=INTEGER}, #{bookName,jdbcType=VARCHAR}, #{bookDesc,jdbcType=VARCHAR}, 
+      #{price,jdbcType=DOUBLE}, #{bgPicture,jdbcType=VARCHAR}, #{downloadNum,jdbcType=INTEGER}, 
+      #{starLevel,jdbcType=INTEGER}, #{downloadUrl,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.weiyuedu.core.module.portal.pojo.BookListDesc" >
+    insert into wyd_book_list_desc
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="bookListId != null" >
+        book_list_id,
+      </if>
+      <if test="bookId != null" >
+        book_id,
+      </if>
+      <if test="categoryId != null" >
+        category_id,
+      </if>
+      <if test="bookName != null" >
+        book_name,
+      </if>
+      <if test="bookDesc != null" >
+        book_desc,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="bgPicture != null" >
+        bg_picture,
+      </if>
+      <if test="downloadNum != null" >
+        download_num,
+      </if>
+      <if test="starLevel != null" >
+        star_level,
+      </if>
+      <if test="downloadUrl != null" >
+        download_url,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bookListId != null" >
+        #{bookListId,jdbcType=INTEGER},
+      </if>
+      <if test="bookId != null" >
+        #{bookId,jdbcType=INTEGER},
+      </if>
+      <if test="categoryId != null" >
+        #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="bookName != null" >
+        #{bookName,jdbcType=VARCHAR},
+      </if>
+      <if test="bookDesc != null" >
+        #{bookDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="bgPicture != null" >
+        #{bgPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadNum != null" >
+        #{downloadNum,jdbcType=INTEGER},
+      </if>
+      <if test="starLevel != null" >
+        #{starLevel,jdbcType=INTEGER},
+      </if>
+      <if test="downloadUrl != null" >
+        #{downloadUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.weiyuedu.core.module.portal.pojo.BookListDesc" >
+    update wyd_book_list_desc
+    <set >
+      <if test="bookListId != null" >
+        book_list_id = #{bookListId,jdbcType=INTEGER},
+      </if>
+      <if test="bookId != null" >
+        book_id = #{bookId,jdbcType=INTEGER},
+      </if>
+      <if test="categoryId != null" >
+        category_id = #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="bookName != null" >
+        book_name = #{bookName,jdbcType=VARCHAR},
+      </if>
+      <if test="bookDesc != null" >
+        book_desc = #{bookDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="bgPicture != null" >
+        bg_picture = #{bgPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadNum != null" >
+        download_num = #{downloadNum,jdbcType=INTEGER},
+      </if>
+      <if test="starLevel != null" >
+        star_level = #{starLevel,jdbcType=INTEGER},
+      </if>
+      <if test="downloadUrl != null" >
+        download_url = #{downloadUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.weiyuedu.core.module.portal.pojo.BookListDesc" >
+    update wyd_book_list_desc
+    set book_list_id = #{bookListId,jdbcType=INTEGER},
+      book_id = #{bookId,jdbcType=INTEGER},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      book_name = #{bookName,jdbcType=VARCHAR},
+      book_desc = #{bookDesc,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DOUBLE},
+      bg_picture = #{bgPicture,jdbcType=VARCHAR},
+      download_num = #{downloadNum,jdbcType=INTEGER},
+      star_level = #{starLevel,jdbcType=INTEGER},
+      download_url = #{downloadUrl,jdbcType=VARCHAR},
+      level = #{level,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByBookListId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from wyd_book_list_desc
+    where book_list_id = #{id,jdbcType=INTEGER}
+  </select>
+</mapper>

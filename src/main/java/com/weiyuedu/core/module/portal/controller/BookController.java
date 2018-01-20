@@ -1,14 +1,19 @@
 package com.weiyuedu.core.module.portal.controller;
 
 import com.weiyuedu.core.common.pojo.ResponseResult;
+import com.weiyuedu.core.module.portal.pojo.Book;
+import com.weiyuedu.core.module.portal.pojo.BookList;
+import com.weiyuedu.core.module.portal.service.BookListService;
 import com.weiyuedu.core.module.portal.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -23,34 +28,41 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
-    @RequestMapping("/select/book/{pageNum}/{pageSize}")
+    @Autowired
+    private BookListService bookListService;
+
+    @RequestMapping(value = "/select/books",method = RequestMethod.GET)
     @ResponseBody
-    public ResponseResult selectAllBook(@PathVariable int pageNum,@PathVariable int pageSize){
+    public ResponseResult selectAllBook(int pageNum,int pageSize){
         ResponseResult result = bookService.selectAllBook(pageNum, pageSize);
-        System.out.println(result);
         return result;
     }
 
-    @RequestMapping("/selectc/{categoryId}")
+    @RequestMapping(value = "/select/booksbycategory",method = RequestMethod.GET)
     @ResponseBody
-    public ResponseResult selectByCategoryId(@PathVariable int categoryId){
-        return bookService.selectByCategoryId(categoryId);
+    public ResponseResult selectByCategoryId( int categoryId,int pageNum,int pageSize){
+        return bookService.selectByCategoryId(categoryId,pageNum,pageSize);
     }
 
-    @RequestMapping("/selectdesc/{id}")
-    @ResponseBody
-    public ResponseResult selectByPrimaryKey(@PathVariable int id){
-        return bookService.selectByPrimaryKey(id);
+    @RequestMapping("/select/bookdesc/{id}")
+    public ModelAndView selectByPrimaryKey(@PathVariable int id){
+        ResponseResult result = bookService.selectByPrimaryKey(id);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("bookdesc");
+        modelAndView.addObject("book",(Book)result.getData());
+        return modelAndView;
     }
+
+
 
     @RequestMapping("/")
     public ModelAndView selectBookBySort(){
-        int[] numbers = {1,2,3,4};
         ResponseResult result = bookService.selectBookBySort();
+        ResponseResult bookList = bookListService.selectAllBookList();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("index");
         modelAndView.addObject("books",(List)result.getData());
-        modelAndView.addObject("numbers",numbers);
+        modelAndView.addObject("booklistses",(List)bookList.getData());
         return modelAndView;
     }
 

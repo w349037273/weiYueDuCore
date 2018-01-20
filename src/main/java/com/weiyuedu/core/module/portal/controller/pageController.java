@@ -1,5 +1,7 @@
 package com.weiyuedu.core.module.portal.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -12,14 +14,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class pageController {
 
+
+    private static final transient Logger log = LoggerFactory.getLogger(pageController.class);
+
     @RequestMapping("/register")
     public String register(){
         return "register";
     }
 
-    @RequestMapping("/index1")
-    public String index(){
-        return "index";
+    @RequestMapping("/yunyingmiao")
+    public String yunYingMiao(){
+        return "/bookgroup/yunyingmiao";
+    }
+
+    @RequestMapping("/chanpinwang")
+    public String chanPinWang(){
+        return "/bookgroup/chanpinwang";
+    }
+
+    @RequestMapping("/chengxuyuan")
+    public String chengXuYuan(){
+        return "/bookgroup/chengxuyuan";
+    }
+
+    @RequestMapping("/nothing")
+    public String nothing(){
+        return "/other/nothing";
+    }
+
+    @RequestMapping("/login")
+    public String login(){
+        System.out.println("info");
+        return "login";
     }
 
 

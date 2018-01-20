@@ -5,6 +5,7 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="book_name" property="bookName" jdbcType="VARCHAR" />
     <result column="book_desc" property="bookDesc" jdbcType="VARCHAR" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
     <result column="category_id" property="categoryId" jdbcType="INTEGER" />
     <result column="price" property="price" jdbcType="DOUBLE" />
     <result column="bg_picture" property="bgPicture" jdbcType="VARCHAR" />
@@ -15,7 +16,7 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, book_name, book_desc, category_id, price, bg_picture, download_num, star_level, 
+    id, book_name, author,book_desc, category_id, price, bg_picture, download_num, star_level,
     download_url, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -29,11 +30,11 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.weiyuedu.core.module.portal.pojo.Book" >
-    insert into wyd_book (id, book_name, book_desc, 
+    insert into wyd_book (id, book_name, author,book_desc,
       category_id, price, bg_picture, 
       download_num, star_level, download_url, 
       create_time, update_time)
-    values (#{id,jdbcType=INTEGER}, #{bookName,jdbcType=VARCHAR}, #{bookDesc,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{bookName,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR},#{bookDesc,jdbcType=VARCHAR},
       #{categoryId,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE}, #{bgPicture,jdbcType=VARCHAR}, 
       #{downloadNum,jdbcType=INTEGER}, #{starLevel,jdbcType=INTEGER}, #{downloadUrl,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
@@ -46,6 +47,9 @@
       </if>
       <if test="bookName != null" >
         book_name,
+      </if>
+      <if test="author != null" >
+        author,
       </if>
       <if test="bookDesc != null" >
         book_desc,
@@ -117,6 +121,9 @@
       <if test="bookName != null" >
         book_name = #{bookName,jdbcType=VARCHAR},
       </if>
+      <if test="author != null" >
+        book_name = #{author,jdbcType=VARCHAR},
+      </if>
       <if test="bookDesc != null" >
         book_desc = #{bookDesc,jdbcType=VARCHAR},
       </if>
@@ -150,6 +157,7 @@
   <update id="updateByPrimaryKey" parameterType="com.weiyuedu.core.module.portal.pojo.Book" >
     update wyd_book
     set book_name = #{bookName,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
       book_desc = #{bookDesc,jdbcType=VARCHAR},
       category_id = #{categoryId,jdbcType=INTEGER},
       price = #{price,jdbcType=DOUBLE},

@@ -12,9 +12,11 @@ public interface BookService {
 
     ResponseResult selectAllBook(int pageNum,int pageSize);
 
-    ResponseResult selectByCategoryId(int categoryId);
+    ResponseResult selectByCategoryId(int categoryId,int pageNum,int pageSize);
 
     ResponseResult selectByPrimaryKey(int id);
 
     ResponseResult selectBookBySort();
+
+//    ResponseResult selectBookBuUUID(String uuid);
 }

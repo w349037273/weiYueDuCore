@@ -11,6 +11,8 @@ public class BookSimple {
 
     private String bookName;
 
+    private String author;
+
     private String bookDesc;
 
     private Double price;
@@ -20,6 +22,14 @@ public class BookSimple {
     private Integer downloadNum;
 
     private Integer starLevel;
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 
     public Integer getId() {
         return id;

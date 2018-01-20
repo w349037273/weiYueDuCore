@@ -5,7 +5,11 @@ import java.util.Date;
 public class Book {
     private Integer id;
 
+//    private String bookUUID;
+
     private String bookName;
+
+    private String author;
 
     private String bookDesc;
 
@@ -32,6 +36,14 @@ public class Book {
     public void setId(Integer id) {
         this.id = id;
     }
+
+//    public String getBookUUID() {
+//        return bookUUID;
+//    }
+//
+//    public void setBookUUID(String bookUUID) {
+//        this.bookUUID = bookUUID;
+//    }
 
     public String getBookName() {
         return bookName;
@@ -111,5 +123,13 @@ public class Book {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }

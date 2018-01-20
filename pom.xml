@@ -31,9 +31,63 @@
     <commons-codec.version>1.9</commons-codec.version>
     <java-jwt.version>3.1.0</java-jwt.version>
     <jjwt.version>0.6.0</jjwt.version>
+    <solrj.version>5.3.1</solrj.version>
+    <shiro.version>1.3.2</shiro.version>
   </properties>
 
     <dependencies>
+
+
+      <!--shiro安全框架-->
+      <dependency>
+        <groupId>org.apache.shiro</groupId>
+        <artifactId>shiro-core</artifactId>
+        <version>${shiro.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.shiro</groupId>
+        <artifactId>shiro-web</artifactId>
+        <version>${shiro.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.shiro</groupId>
+        <artifactId>shiro-guice</artifactId>
+        <version>${shiro.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.shiro</groupId>
+        <artifactId>shiro-spring</artifactId>
+        <version>${shiro.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.shiro</groupId>
+        <artifactId>shiro-aspectj</artifactId>
+        <version>${shiro.version}</version>
+      </dependency>
+
+      <!--shiro缓存框架-->
+      <dependency>
+        <groupId>org.apache.shiro</groupId>
+        <artifactId>shiro-ehcache</artifactId>
+        <version>${shiro.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.shiro</groupId>
+        <artifactId>shiro-quartz</artifactId>
+        <version>${shiro.version}</version>
+      </dependency>
+
+      <!--solr搜索服务jar包-->
+      <dependency>
+        <groupId>org.apache.solr</groupId>
+        <artifactId>solr-solrj</artifactId>
+        <version>${solrj.version}</version>
+      </dependency>
 
       <!--FreeMarket模版引擎jar包-->
       <dependency>
@@ -42,15 +96,11 @@
         <version>2.3.26-incubating</version>
       </dependency>
 
-
-
-
       <dependency>
         <groupId>com.alibaba</groupId>
         <artifactId>fastjson</artifactId>
         <version>1.2.13</version>
       </dependency>
-
 
       <!-- 时间操作组件 -->
       <dependency>
@@ -81,11 +131,11 @@
         <version>${jackson.version}</version>
       </dependency>
       <!-- httpclient -->
-      <!--<dependency>-->
-        <!--<groupId>org.apache.httpcomponents</groupId>-->
-        <!--<artifactId>httpclient</artifactId>-->
-        <!--<version>${httpclient.version}</version>-->
-      <!--</dependency>-->
+      <dependency>
+        <groupId>org.apache.httpcomponents</groupId>
+        <artifactId>httpclient</artifactId>
+        <version>${httpclient.version}</version>
+      </dependency>
 
       <!--apache加密解密-->
       <dependency>
@@ -235,6 +285,28 @@
         <version>${jjwt.version}</version>
       </dependency>
 
+      <!--七牛云sdk-->
+      <dependency>
+        <groupId>com.qiniu</groupId>
+        <artifactId>qiniu-java-sdk</artifactId>
+        <version>7.2.6</version>
+      </dependency>
+      <!--七牛云依赖的第三发类库-->
+      <dependency>
+        <groupId>com.squareup.okhttp3</groupId>
+        <artifactId>okhttp</artifactId>
+        <version>3.3.1</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.code.gson</groupId>
+        <artifactId>gson</artifactId>
+        <version>2.6.2</version>
+      </dependency>
+      <dependency>
+        <groupId>com.qiniu</groupId>
+        <artifactId>happy-dns-java</artifactId>
+        <version>0.1.4</version>
+      </dependency>
 
     <dependency>
       <groupId>junit</groupId>
@@ -244,15 +316,86 @@
     </dependency>
   </dependencies>
 
-
   <build>
+
+
+  <plugins>
+
+
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-war-plugin</artifactId>
+      <version>2.4</version>
+      <configuration>
+        <warSourceExcludes>**/*.js,**/*.css</warSourceExcludes>
+      </configuration>
+    </plugin>
+
+
+    <plugin>
+      <!-- YUI Compressor Maven压缩插件 -->
+      <groupId>net.alchim31.maven</groupId>
+      <artifactId>yuicompressor-maven-plugin</artifactId>
+      <version>1.3.0</version>
+      <executions>
+        <execution>
+          <phase>process-resources</phase>
+          <goals>
+            <goal>compress</goal>
+          </goals>
+        </execution>
+      </executions>
+      <configuration>
+        <!-- 读取js,css文件采用UTF-8编码 -->
+        <encoding>UTF-8</encoding>
+        <!-- 不显示js可能的错误 -->
+        <jswarn>false</jswarn>
+        <!-- 若存在已压缩的文件，会先对比源文件是否有改动  有改动便压缩，无改动就不压缩 -->
+        <force>false</force>
+        <!-- 在指定的列号后插入新行 -->
+        <linebreakpos>-1</linebreakpos>
+        <!-- 压缩之前先执行聚合文件操作 -->
+        <preProcessAggregates>true</preProcessAggregates>
+        <!-- 压缩后保存文件后缀 无后缀 -->
+        <nosuffix>true</nosuffix>
+        <!-- 源目录，即需压缩的根目录 -->
+        <sourceDirectory>src/main/webapp/resource</sourceDirectory>
+        <!-- 压缩js和css文件 -->
+        <includes>
+          <include>**/*.js</include>
+          <include>**/*.css</include>
+        </includes>
+        <!-- 以下目录和文件不会被压缩 -->
+        <excludes>
+          <exclude>**/*.min.js</exclude>
+          <exclude>**/*.min.css</exclude>
+          <!--以下文件存在xml语法错误-->
+          <exclude>**/helium.js</exclude>
+        </excludes>
+
+      </configuration>
+    </plugin>
+  </plugins>
+
+
+
+
+
+
+
     <resources>
       <resource>
-        <directory>src/main/java/</directory>
+        <directory>${basedir}/src/main/java</directory>
         <includes>
+          <include>**/*.properties</include>
           <include>**/*.xml</include>
         </includes>
+      </resource>
+      <resource>
+        <directory>${basedir}/src/main/resources</directory>
       </resource>
     </resources>
   </build>
 </project>
+
+
